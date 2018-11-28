@@ -61,10 +61,17 @@ namespace FastReducto
 
             ColorsCount = 0;
         }
+
         public Color TranslateColor(Color color)
         {
             Node tmp = FindNode(color, false);
             return Color.FromArgb((int)(tmp.R / tmp.PixelsCount), (int)(tmp.G / tmp.PixelsCount), (int)(tmp.B / tmp.PixelsCount));
+        }
+
+        public void AddAndReductColor(Color c, int colors_count)
+        {
+            AddColor(c);
+            ReductTree(colors_count);
         }
 
         public void AddColor(Color color)
@@ -105,6 +112,10 @@ namespace FastReducto
 
         public void ReductNode(Node parent)
         {
+            //jeśli parent jest redukowany poraz pierwszy należy dodać go do listy kolorów
+            //potem tylko zmieniamy jego wartość :D
+            if (parent.PixelsCount == 0)
+                ColorsCount++;
             for (int i = 0; i < 8; i++)
             {
                 if (parent.Childs[i] != null)
@@ -114,11 +125,13 @@ namespace FastReducto
                     parent.B += parent.Childs[i].B;
                     parent.PixelsCount += parent.Childs[i].PixelsCount;
 
+                    //usunięcie ze stosownej listy levelowej
+                    if (parent.Childs[i].Level < 8)
+                        Levels[parent.Childs[i].Level].Remove(parent.Childs[i]);
                     parent.Childs[i] = null;
                     ColorsCount--;
                 }
             }
-            ColorsCount++;
         }
 
         public Node FindNode(Color color, bool insert)
@@ -139,7 +152,7 @@ namespace FastReducto
                     if (insert)
                     {
                         tmp.Childs[index] = new Node(i + 1);
-                        if (i != 7) Levels[i + 1].Add(tmp.Childs[index]);
+                        if (i < 7) Levels[i + 1].Add(tmp.Childs[index]);
                     }
                     else
                         break;
@@ -159,14 +172,14 @@ namespace FastReducto
             {
                 //sortowanie poziomu tak by usuwać najrzadsze kolory
                 Levels[i].Sort();
-                while (Levels[i].Count > 0)
+                for(int j = 0; j < Levels[i].Count; j++)
                 {
                     if (ColorsCount <= colors_count)
                         return;
 
-                    Node tmp = Levels[i].First();
+                    Node tmp = Levels[i][j];
+
                     ReductNode(tmp);
-                    Levels[i].RemoveAt(0);
                 }
 
             }

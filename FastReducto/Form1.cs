@@ -12,8 +12,8 @@ namespace FastReducto
 {
     public partial class Form1 : Form
     {
-        Octree Octree;
-        Bitmap OriginalImage, ReductedImage;
+        Octree Octree, StepOctree;
+        Bitmap OriginalImage, ReductedImage, StepReductedImage;
         int ColorsNumber;
 
         public Form1()
@@ -24,7 +24,6 @@ namespace FastReducto
 
         private void LoadForm()
         {
-            Octree = new Octree();
             ColorsNumber = 16;
             LoadImage(true);
         }
@@ -36,32 +35,38 @@ namespace FastReducto
             if (textBox1.Text != "" && int.TryParse(textBox1.Text, out number))
                 ColorsNumber = number;
             //wczytanie do drzewa oryginalnego obrazka
-            LoadColorPalette();
+            LoadColorPalette(ColorsNumber);
             //redukcja
             Octree.ReductTree(ColorsNumber);
 
             GenerateReductedImage();
         }
 
-        private void LoadColorPalette()
+        private void LoadColorPalette(int colors_count)
         {
             Octree = new Octree();
+            StepOctree = new Octree();
             for (int i = 0; i < OriginalImage.Width; i++)
                 for (int j = 0; j < OriginalImage.Height; j++)
                 {
-                    Octree.AddColor(OriginalImage.GetPixel(i, j));
+                    Color c = OriginalImage.GetPixel(i, j);
+                    Octree.AddColor(c);
+                    StepOctree.AddAndReductColor(c, colors_count);
                 }
         }
 
         private void GenerateReductedImage()
         {
             ReductedImage = new Bitmap(OriginalImage);
+            StepReductedImage = new Bitmap(OriginalImage);
             for(int i=0;i<ReductedImage.Width;i++)
                 for(int j=0;j<ReductedImage.Height;j++)
                 {
                     ReductedImage.SetPixel(i, j, Octree.TranslateColor(OriginalImage.GetPixel(i, j)));
+                    StepReductedImage.SetPixel(i, j, StepOctree.TranslateColor(OriginalImage.GetPixel(i, j)));
                 }
             pictureBox2.Image = ReductedImage;
+            pictureBox3.Image = StepReductedImage;
         }
 
         private void LoadImage(bool def = false)
