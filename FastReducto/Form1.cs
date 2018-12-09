@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -127,6 +128,30 @@ namespace FastReducto
                 MakePictureGrayAgain(GrayScaleComboBox.SelectedIndex);
                 pictureBox1.BackgroundImage = GrayImage.Bitmap;
             }
+        }
+
+        private void Save(bool image)
+        {
+            if (null == ReductedImage || null == StepReductedImage)
+                return;
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if(image)
+                    ReductedImage.Bitmap.Save(saveFileDialog1.FileName,ImageFormat.Png);
+                else
+                    StepReductedImage.Bitmap.Save(saveFileDialog1.FileName, ImageFormat.Png);
+            }
+            openFileDialog1.Dispose();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Save(true);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Save(false);
         }
 
         private void MakePictureGrayAgain(int method)

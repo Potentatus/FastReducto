@@ -72,7 +72,7 @@ namespace FastReducto
         public void AddAndReductColor(Color c, int colors_count)
         {
             AddColor(c);
-            ReductTree(colors_count);
+            ReductTree(colors_count,true);
         }
 
         public void AddColor(Color color)
@@ -111,7 +111,7 @@ namespace FastReducto
             return result;
         }
 
-        public void ReductNode(Node parent)
+        public void ReductNode(Node parent, bool step = false)
         {
             //jeśli parent jest redukowany poraz pierwszy należy dodać go do listy kolorów
             //potem tylko zmieniamy jego wartość :D
@@ -127,8 +127,11 @@ namespace FastReducto
                     parent.PixelsCount += parent.Childs[i].PixelsCount;
 
                     //usunięcie ze stosownej listy levelowej
-                    if (parent.Childs[i].Level < 8)
-                        Levels[parent.Childs[i].Level].Remove(parent.Childs[i]);
+                    if (step)
+                    {
+                        if (parent.Childs[i].Level < 8)
+                            Levels[parent.Childs[i].Level].Remove(parent.Childs[i]);
+                    }
                     parent.Childs[i] = null;
                     ColorsCount--;
                 }
@@ -163,7 +166,7 @@ namespace FastReducto
             return tmp;
         }
 
-        public void ReductTree(int colors_count)
+        public void ReductTree(int colors_count, bool step = false)
         {
             if (ColorsCount <= colors_count)
                 return;
@@ -180,7 +183,7 @@ namespace FastReducto
 
                     Node tmp = Levels[i][j];
 
-                    ReductNode(tmp);
+                    ReductNode(tmp, step);
                 }
             }
         }

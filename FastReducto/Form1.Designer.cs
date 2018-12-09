@@ -43,6 +43,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -60,6 +62,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "\"PNG files|*.png|All files|*.*\"";
             // 
             // pictureBox1
             // 
@@ -79,17 +82,18 @@
             // 
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 23);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(569, 417);
+            this.pictureBox2.Size = new System.Drawing.Size(569, 394);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // ReductoButton
             // 
             this.ReductoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ReductoButton.Location = new System.Drawing.Point(175, 103);
+            this.ReductoButton.Location = new System.Drawing.Point(91, 116);
             this.ReductoButton.Name = "ReductoButton";
             this.ReductoButton.Size = new System.Drawing.Size(116, 58);
             this.ReductoButton.TabIndex = 2;
@@ -119,12 +123,13 @@
             // 
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox3.Location = new System.Drawing.Point(0, 20);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(569, 407);
+            this.pictureBox3.Size = new System.Drawing.Size(569, 387);
             this.pictureBox3.TabIndex = 5;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // GrayScaleCheckBox
             // 
@@ -191,6 +196,7 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(12, 12);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -217,15 +223,40 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.label2);
             this.splitContainer2.Panel1.Controls.Add(this.pictureBox2);
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.label3);
             this.splitContainer2.Panel2.Controls.Add(this.pictureBox3);
             this.splitContainer2.Size = new System.Drawing.Size(569, 834);
             this.splitContainer2.SplitterDistance = 417;
             this.splitContainer2.SplitterWidth = 10;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "\".png\"";
+            this.saveFileDialog1.Filter = "\"PNG files|*.png|All files|*.*\"";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(189, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(223, 17);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Reduced after octree construction";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(180, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(229, 17);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Reduced along octree construction";
             // 
             // FastReducto
             // 
@@ -246,7 +277,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -270,6 +303,8 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
