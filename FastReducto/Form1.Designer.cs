@@ -38,13 +38,18 @@
             this.GrayScaleCheckBox = new System.Windows.Forms.CheckBox();
             this.GrayScaleComboBox = new System.Windows.Forms.ComboBox();
             this.ControlsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -93,7 +98,7 @@
             // ReductoButton
             // 
             this.ReductoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ReductoButton.Location = new System.Drawing.Point(91, 116);
+            this.ReductoButton.Location = new System.Drawing.Point(31, 116);
             this.ReductoButton.Name = "ReductoButton";
             this.ReductoButton.Size = new System.Drawing.Size(116, 58);
             this.ReductoButton.TabIndex = 2;
@@ -104,7 +109,7 @@
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(175, 30);
+            this.textBox1.Location = new System.Drawing.Point(221, 30);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(65, 22);
             this.textBox1.TabIndex = 3;
@@ -115,9 +120,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(28, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 17);
+            this.label1.Size = new System.Drawing.Size(176, 17);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Number of colors";
+            this.label1.Text = "Required number of colors";
             // 
             // pictureBox3
             // 
@@ -135,7 +140,7 @@
             // 
             this.GrayScaleCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GrayScaleCheckBox.AutoSize = true;
-            this.GrayScaleCheckBox.Location = new System.Drawing.Point(31, 58);
+            this.GrayScaleCheckBox.Location = new System.Drawing.Point(442, 32);
             this.GrayScaleCheckBox.Name = "GrayScaleCheckBox";
             this.GrayScaleCheckBox.Size = new System.Drawing.Size(100, 21);
             this.GrayScaleCheckBox.TabIndex = 6;
@@ -151,7 +156,7 @@
             "Lightness",
             "Average",
             "Luminosity"});
-            this.GrayScaleComboBox.Location = new System.Drawing.Point(175, 58);
+            this.GrayScaleComboBox.Location = new System.Drawing.Point(418, 64);
             this.GrayScaleComboBox.Name = "GrayScaleComboBox";
             this.GrayScaleComboBox.Size = new System.Drawing.Size(149, 24);
             this.GrayScaleComboBox.TabIndex = 7;
@@ -162,6 +167,11 @@
             // 
             this.ControlsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ControlsGroupBox.Controls.Add(this.label8);
+            this.ControlsGroupBox.Controls.Add(this.label7);
+            this.ControlsGroupBox.Controls.Add(this.label6);
+            this.ControlsGroupBox.Controls.Add(this.label5);
+            this.ControlsGroupBox.Controls.Add(this.label4);
             this.ControlsGroupBox.Controls.Add(this.progressBar1);
             this.ControlsGroupBox.Controls.Add(this.GrayScaleComboBox);
             this.ControlsGroupBox.Controls.Add(this.GrayScaleCheckBox);
@@ -169,11 +179,60 @@
             this.ControlsGroupBox.Controls.Add(this.ReductoButton);
             this.ControlsGroupBox.Controls.Add(this.textBox1);
             this.ControlsGroupBox.Location = new System.Drawing.Point(3, 598);
+            this.ControlsGroupBox.MinimumSize = new System.Drawing.Size(573, 233);
             this.ControlsGroupBox.Name = "ControlsGroupBox";
             this.ControlsGroupBox.Size = new System.Drawing.Size(573, 233);
             this.ControlsGroupBox.TabIndex = 8;
             this.ControlsGroupBox.TabStop = false;
             this.ControlsGroupBox.Text = "Controls";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(288, 106);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 17);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Step reduction";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(288, 67);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(98, 17);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "One reduction";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(218, 106);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 17);
+            this.label6.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(218, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(0, 17);
+            this.label5.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(28, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(177, 17);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Received number of colors";
             // 
             // progressBar1
             // 
@@ -235,13 +294,10 @@
             this.splitContainer2.SplitterWidth = 10;
             this.splitContainer2.TabIndex = 0;
             // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "\".png\"";
-            this.saveFileDialog1.Filter = "\"PNG files|*.png|All files|*.*\"";
-            // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(189, 3);
             this.label2.Name = "label2";
@@ -251,6 +307,8 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(180, 0);
             this.label3.Name = "label3";
@@ -258,15 +316,20 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Reduced along octree construction";
             // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "\".png\"";
+            this.saveFileDialog1.Filter = "\"PNG files|*.png|All files|*.*\"";
+            // 
             // FastReducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 858);
             this.Controls.Add(this.splitContainer1);
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MinimumSize = new System.Drawing.Size(1200, 600);
             this.Name = "FastReducto";
-            this.Text = "Form1";
+            this.Text = "OctreeReduction";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -305,6 +368,11 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
     }
 }
 

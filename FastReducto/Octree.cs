@@ -10,24 +10,30 @@ namespace FastReducto
 {
     class Node : IComparable
     {
+        public bool Exist;
         public uint R, G, B;
         public int PixelsCount;
         public Node[] Childs;
+        public Node Parent;
         public byte Level;
         public Node()
         {
+            Exist = true;
             Level = 0;
             PixelsCount = 0;
             Childs = new Node[8];
+            Parent = null;
             R = 0;
             G = 0;
             B = 0;
         }
         public Node(int level)
         {
+            Exist = true;
             Level = (byte)level;
             PixelsCount = 0;
             Childs = new Node[8];
+            Parent = null;
             R = 0;
             G = 0;
             B = 0;
@@ -46,6 +52,10 @@ namespace FastReducto
     }
     class Octree
     {
+        //prosta implementacja drzewa Octree
+        //jeden minus - węzły są usuwane i tworzone, zamiast zaznaczane i odznaczane - zbrakło czasu od pomysłu do realizacji
+        //pokomentowane obszary kodu dotyczą wersji ze znakowaniem węzłów zamiast usuwania
+        //niestety wersja ta nie została ukończona na czas
         public Node Root;
         public List<List<Node>> Levels;
         public int ColorsCount;
@@ -72,7 +82,7 @@ namespace FastReducto
         public void AddAndReductColor(Color c, int colors_count)
         {
             AddColor(c);
-            ReductTree(colors_count,true);
+            ReductTree(colors_count, true);
         }
 
         public void AddColor(Color color)
@@ -111,29 +121,45 @@ namespace FastReducto
             return result;
         }
 
-        public void ReductNode(Node parent, bool step = false)
+        public void ReductNode(Node parent, bool step)
         {
+            ////sprawdzamy, czy węzeł istnieje w drzewie
+            //if (!parent.Exist)
+            //    return;
+
             //jeśli parent jest redukowany poraz pierwszy należy dodać go do listy kolorów
             //potem tylko zmieniamy jego wartość :D
             if (parent.PixelsCount == 0)
                 ColorsCount++;
+            int child_level = parent.Level + 1;
             for (int i = 0; i < 8; i++)
             {
-                if (parent.Childs[i] != null)
+                if (parent.Childs[i] != null && parent.Childs[i].Exist)
                 {
+                    //przepisanie do parenta
                     parent.R += parent.Childs[i].R;
                     parent.G += parent.Childs[i].G;
                     parent.B += parent.Childs[i].B;
                     parent.PixelsCount += parent.Childs[i].PixelsCount;
+                    parent.Childs[i].Parent = null;
 
-                    //usunięcie ze stosownej listy levelowej
-                    if (step)
+                    ////wyczyszczenie childa - przy znakowaniu nodów
+                    //parent.Childs[i].Exist = false;
+                    //parent.Childs[i].R = 0;
+                    //parent.Childs[i].G = 0;
+                    //parent.Childs[i].B = 0;
+                    //parent.Childs[i].PixelsCount = 0;
+                    ColorsCount--;
+
+                    //usuwanie, które spowalnia
+                    //pośrednie rozwiązanie - nie usuwamy przy całkowitej redukcji
+                    if(step)
                     {
-                        if (parent.Childs[i].Level < 8)
-                            Levels[parent.Childs[i].Level].Remove(parent.Childs[i]);
+                        if (child_level <= 7)
+                            Levels[child_level].Remove(parent.Childs[i]);
                     }
                     parent.Childs[i] = null;
-                    ColorsCount--;
+
                 }
             }
         }
@@ -156,11 +182,24 @@ namespace FastReducto
                     if (insert)
                     {
                         tmp.Childs[index] = new Node(i + 1);
+                        tmp.Childs[index].Parent = tmp;
                         if (i < 7) Levels[i + 1].Add(tmp.Childs[index]);
                     }
+                    //jeśli szukamy i niżej się nie da - trzeba sprawdzić, czy aby nie jest to fałszywy node
                     else
+                    {
+                        if(tmp.PixelsCount==0)
+                        {
+                            while (tmp.PixelsCount == 0)
+                                tmp = tmp.Parent;
+                        }
                         break;
+                    }
                 }
+                //else if(!tmp.Childs[index].Exist)
+                //{
+                //    tmp.Childs[index].Exist = true;
+                //}
                 tmp = tmp.Childs[index];
             }
             return tmp;
@@ -176,6 +215,7 @@ namespace FastReducto
             {
                 //sortowanie poziomu tak by usuwać najrzadsze kolory
                 Levels[i].Sort();
+
                 for(int j = 0; j < Levels[i].Count; j++)
                 {
                     if (ColorsCount <= colors_count)

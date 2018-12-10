@@ -11,6 +11,7 @@ namespace FastReducto
 {
     public class DirectBitmap : IDisposable
     {
+        //transfer bitmapy do tablicy intów - boost dla operacji getpixel i setpixel
         public Bitmap Bitmap { get; private set; }
         public Int32[] Bits { get; private set; }
         public bool Disposed { get; private set; }

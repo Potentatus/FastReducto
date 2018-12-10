@@ -41,6 +41,7 @@ namespace FastReducto
             if (textBox1.Text != "" && int.TryParse(textBox1.Text, out number))
                 ColorsNumber = number;
             //odpalenie progress bara
+            //i obliczeń - wszystko w osobnym wątku - forma się nie zawiesza
             progressBar1.Visible = true;
             backgroundWorker1.RunWorkerAsync();
         }
@@ -48,10 +49,14 @@ namespace FastReducto
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             DirectBitmap origin;
+            //uwzględnienie skali szarości
             if (GrayScaleCheckBox.Checked)
                 origin = GrayImage;
             else
                 origin = OriginalImage;
+            //wyczyszczenie poprzednich wyników
+            pictureBox2.BackgroundImage = null;
+            pictureBox3.BackgroundImage = null;
             //wczytanie do drzewa oryginalnego obrazka
             LoadColorPalette(ColorsNumber, origin);
             //redukcja
@@ -65,6 +70,8 @@ namespace FastReducto
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBar1.Value = e.ProgressPercentage;
+            label5.Text = Octree.ColorsCount.ToString();
+            label6.Text = StepOctree.ColorsCount.ToString();
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -75,6 +82,7 @@ namespace FastReducto
 
         private void LoadColorPalette(int colors_count, DirectBitmap origin)
         {
+            //Wgranie obrazka - zbudowanie drzewa Octree (podstawowego, i redukowanego stopniowo)
             Octree = new Octree();
             StepOctree = new Octree();
             for (int i = 0; i < origin.Width; i++)
@@ -91,8 +99,7 @@ namespace FastReducto
 
         private void GenerateReductedImage(DirectBitmap origin)
         {
-            pictureBox2.BackgroundImage = null;
-            pictureBox3.BackgroundImage = null;
+            //Przerysowanie obrazka przy pomocy nowej palety
 
             ReductedImage?.Dispose();
             StepReductedImage?.Dispose();
@@ -123,6 +130,7 @@ namespace FastReducto
 
         private void GrayScaleComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Poszarzenie obrazka wejściowego
             if (GrayScaleCheckBox.Checked)
             {
                 MakePictureGrayAgain(GrayScaleComboBox.SelectedIndex);
@@ -132,6 +140,10 @@ namespace FastReducto
 
         private void Save(bool image)
         {
+            //Zapisz wynikowych obrazków (zredukowanych)
+            //image = true - Reduced after tree contruction 
+            //image = false - Reduced along tree contruction 
+
             if (null == ReductedImage || null == StepReductedImage)
                 return;
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -177,6 +189,7 @@ namespace FastReducto
 
         private void LoadImage(bool def = false)
         {
+            //Wgranie wejściowego obrazka
             Bitmap file = null;
             if (def)
             {
